@@ -101,7 +101,7 @@
 
 
 					// Then display the remaining fields in the HTML (Section Name, Date, URL)
-					$("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].customerID + "</h2>");
+					$("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].customerID + "<button class='btn-danger pull-right' val = " + i + ">Delete</button></h2>");
 				}
 			});
 	}
@@ -158,11 +158,16 @@
 		location.reload();
 	})
 
+	$("#tableSection").on("click", "button", event=>{
+		var id = $(this).attr("val");
+	});
+
 
 	// Run Queries!
 	// ==========================================
 	runTableQuery();
 	runWaitListQuery();
+
 
 
 </script>
