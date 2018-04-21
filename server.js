@@ -17,23 +17,35 @@ app.use(bodyParser.json());
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "home.html"));
-  });
+});
 
 app.get("/tables", function(req, res) {
     res.sendFile(path.join(__dirname, "view.html"));
-  });
-
-app.get("/reserve", function(req, res) {
-res.sendFile(path.join(__dirname, "make.html"));
 });
 
-app.post("/api/tables", (req, res)=>{
+app.get("/reserve", function(req, res) {
+    res.sendFile(path.join(__dirname, "make.html"));
+});
+
+app.get("/api/tables", (req, res) => {
+    res.json(reservations);
+});
+
+app.get("/api/waitlist", (req, res) => {
+    res.json(waitlist);
+});
+
+app.post("/api/tables", function(req, res) {
     if(reservations.length < maxTables) {
         reservations.push(req.body);
-        return res.end(true);
+        console.log("Reservations updated:");
+        console.log(reservations);
+        return res.end("true");
     }
     waitlist.push(req.body);
-    return res.end(false);
+    console.log("Waitlist updated:");
+    console.log(waitlist);
+    return res.end("false");
 });
 
 app.listen(PORT, function() {
